@@ -24,7 +24,7 @@ public class Player {
     }
     //Returns player's score
     public int getScore(){
-        return hand.getValue()
+        return hand.getValue();
     }
     //Returns a string version of the player
     @Override

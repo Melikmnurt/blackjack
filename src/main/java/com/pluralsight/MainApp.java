@@ -30,6 +30,7 @@ public class MainApp {
 
             //Deal card to player1
             player1.getHand().deal(deck.deal());
+            player2.getHand().deal(deck.deal());
         }
         //Display player hands
         System.out.println();
@@ -54,13 +55,13 @@ public class MainApp {
         else if (
                 (player1score <= 21) && (player1score > player2score || player2score > 21)
         ) {
-            System.out.println(player1.getName() + "wins!");
+            System.out.println(player1.getName() + " Wins!");
         }
         //Player 2 wins
         else if (
                 (player2score <= 21) && (player2score > player1score || player1score > 21)
         ) {
-            System.out.println(player2.getName() + "Wins!");
+            System.out.println(player2.getName() + " Wins!");
         }
 //Tie game
         else {

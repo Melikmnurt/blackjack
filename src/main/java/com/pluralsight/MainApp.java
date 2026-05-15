@@ -1,5 +1,5 @@
 package com.pluralsight;
-
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MainApp {
@@ -8,17 +8,21 @@ public class MainApp {
         //Create scanner for user input
         Scanner scanner = new Scanner(System.in);
 
-        //Ask for player names
-        System.out.print("Enter Player 1 Name: ");
-        String player1Name = scanner.nextLine();
+        //Ask for number of players
+        System.out.print("How many players? ");
+        int numberOfPlayers = scanner.nextInt();
+        scanner.nextLine();
 
-        System.out.print("Enter Player 2 Name: ");
-        String player2Name = scanner.nextLine();
+        //Create ArrayList of players
+        ArrayList<Player> players = new ArrayList<>();
 
         //Create Players
-        Player player1 = new Player(player1Name);
-        Player player2 = new Player(player2Name);
+        for (int i = 1; i <= numberOfPlayers; i++) {
+            System.out.print("Enter Player " + i + " Name: ");
+            String name = scanner.nextLine();
 
+            players.add(new Player(name));
+        }
         //Create deck
         Deck deck = new Deck();
 
@@ -28,46 +32,45 @@ public class MainApp {
         //Deal 2 cards to each other player
         for (int i = 0; i < 2; i++) {
 
-            //Deal card to player1
-            player1.getHand().deal(deck.deal());
-            player2.getHand().deal(deck.deal());
+            //Deal 2 cards to every player
+            for (Player player : players) {
+                player.getHand().deal(deck.deal());
+            }
         }
-        //Display player hands
+        //Display all player hands
+        for (Player player : players) {
+
+            System.out.println();
+            System.out.println(player);
+        }
+        //Determine Winner
+        Player winner = null;
+        int highestScore = 0;
+
+        //Loop through all players
+        for (Player player : players) {
+            int score = player.getScore();
+
+            //Player must be 21 or less
+            if (score <= 21 && score > highestScore) {
+
+                highestScore = score;
+                winner = player;
+            }
+        }
         System.out.println();
-        System.out.println(player1);
 
-        System.out.println();
-        System.out.println(player2);
+        //Dsiplay winner
+        if (winner == null) {
 
-        //Get Scores
-        int player1score = player1.getScore();
-        int player2score = player2.getScore();
+            System.out.println("Everyone Busted!");
+        } else {
 
-        System.out.println();
-
-        //Determine winner
-
-        //Both players busted
-        if (player1score > 21 && player2score > 21) {
-            System.out.println("Both players busted!");
-        }
-        //Player 1 wins
-        else if (
-                (player1score <= 21) && (player1score > player2score || player2score > 21)
-        ) {
-            System.out.println(player1.getName() + " Wins!");
-        }
-        //Player 2 wins
-        else if (
-                (player2score <= 21) && (player2score > player1score || player1score > 21)
-        ) {
-            System.out.println(player2.getName() + " Wins!");
-        }
-//Tie game
-        else {
-            System.out.println("It's a tie!");
-        }
+            {
+                System.out.println(winner.getName() + " Wins!");
+            }
 //Close Scanner
-        scanner.close();
+            scanner.close();
+        }
     }
 }

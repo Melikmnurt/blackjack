@@ -54,7 +54,7 @@ public class MainApp {
                     break;
                 }
                 //Ask player to hit or stay
-                System.out.print(player.getName() + " - Hit or Stay?");
+                System.out.println(player.getName() + " - Hit or Stay?");
                 String choice = scanner.nextLine();
 
                 //Player chooses hit

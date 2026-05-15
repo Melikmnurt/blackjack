@@ -22,13 +22,22 @@ public class Hand {
     //Calculates the total blackjack value of the hand
     public int getValue(){
         int value = 0;
+        int aceCount = 0;
 
         //Loop through all cards
-        for (Card card : cards){
+        for (Card card : cards) {
 
             //Add each card value
             value += card.getPointValue();
+            if (card.getValue().equals("A")) {
+                aceCount++;
+            }
         }
+            while (value > 21 && aceCount > 0){
+                value -= 10;
+                aceCount--;
+            }
+
         return value;
     }
     //Returns a string version of the hand

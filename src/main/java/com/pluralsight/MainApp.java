@@ -37,6 +37,36 @@ public class MainApp {
                 player.getHand().deal(deck.deal());
             }
         }
+        //Each player takes a turn
+        for (Player player : players){
+
+            boolean playing = true;
+
+            //Keep taking turns until player stays or busts
+            while (playing){
+                System.out.println();
+                System.out.println(player);
+
+                //If player busts automatically end turn
+                if (player.getScore() > 21){
+
+                    System.out.println(player.getName() + " Busted !");
+                    break;
+                }
+                //Ask player to hit or stay
+                System.out.print(player.getName() + " - Hit or Stay?");
+                String choice = scanner.nextLine();
+
+                //Player chooses hit
+                if (choice.equalsIgnoreCase("hit")){
+                    player.getHand().deal(deck.deal());
+                }
+                //Player chooses stay
+                else {
+                    playing = false;
+                }
+            }
+        }
         //Display all player hands
         for (Player player : players) {
 
